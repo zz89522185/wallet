@@ -1,0 +1,6 @@
+Starting server at 0.0.0.0:8888...
+{"@timestamp":"2026-03-12T21:47:08.821+08:00","caller":"p2c/p2c.go:195","content":"p2c - conn: 127.0.0.1:8080, load: 1284, reqs: 1","level":"stat"}
+{"@timestamp":"2026-03-12T21:47:08.821+08:00","caller":"handler/loghandler.go:167","content":"[HTTP] 200 - POST /wallets - [::1]:53812 - curl/8.12.1","duration":"2.2ms","level":"info","span":"fb5433f006d7ea9a","trace":"1989fc891b5517556b5cfda7cac1d831"}
+{"@timestamp":"2026-03-12T21:47:09.769+08:00","caller":"handler/loghandler.go:167","content":"[HTTP] 200 - GET /wallets/123 - [::1]:63797 - curl/8.12.1","duration":"0.5ms","level":"info","span":"a8710abdf6b3f8a0","trace":"fa1da26a952ee5867f2dd7a67c4f2beb"}
+{"@timestamp":"2026-03-12T21:47:10.963+08:00","caller":"handler/loghandler.go:167","content":"[HTTP] 200 - POST /wallets/transfer - [::1]:63798 - curl/8.12.1","duration":"1.6ms","level":"info","span":"2b7a336d837c6331","trace":"1ace56105588f79754602ad8bbb0f0de"}
+exit status 1

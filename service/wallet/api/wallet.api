@@ -1,0 +1,47 @@
+syntax = "v1"
+
+type (
+	CreateWalletReq {
+		UserId   int64  `json:"userId"`
+		Currency string `json:"currency"`
+	}
+	CreateWalletResp {
+		WalletId int64 `json:"walletId"`
+		Balance  int64 `json:"balance"`
+	}
+)
+
+type (
+	GetWalletReq {
+		WalletId int64 `path:"walletId"`
+	}
+	GetWalletResp {
+		WalletId int64  `json:"walletId"`
+		Balance  int64  `json:"balance"`
+		Currency string `json:"currency"`
+	}
+)
+
+type (
+	TransferReq {
+		FromWalletId int64  `json:"fromWalletId"`
+		ToWalletId   int64  `json:"toWalletId"`
+		Amount       int64  `json:"amount"`
+		Remark       string `json:"remark,optional"`
+	}
+	TransferResp {
+		TransferId string `json:"transferId"`
+	}
+)
+
+service wallet-api {
+	@handler CreateWalletHandler
+	post /wallets (CreateWalletReq) returns (CreateWalletResp)
+
+	@handler GetWalletHandler
+	get /wallets/:walletId (GetWalletReq) returns (GetWalletResp)
+
+	@handler TransferHandler
+	post /wallets/transfer (TransferReq) returns (TransferResp)
+}
+

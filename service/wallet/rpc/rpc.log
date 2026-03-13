@@ -1,0 +1,5 @@
+Starting rpc server at 0.0.0.0:8080...
+{"@timestamp":"2026-03-12T21:47:08.820+08:00","caller":"serverinterceptors/statinterceptor.go:94","content":"127.0.0.1:60457 - /wallet.Wallet/CreateWallet - {\"userId\":1,\"currency\":\"CNY\"}","duration":"0.0ms","level":"info","span":"8bf62e1c2fec9d07","trace":"1989fc891b5517556b5cfda7cac1d831"}
+{"@timestamp":"2026-03-12T21:47:09.769+08:00","caller":"serverinterceptors/statinterceptor.go:94","content":"127.0.0.1:60457 - /wallet.Wallet/GetWallet - {\"walletId\":123}","duration":"0.0ms","level":"info","span":"e57d6b2822c08e06","trace":"fa1da26a952ee5867f2dd7a67c4f2beb"}
+{"@timestamp":"2026-03-12T21:47:10.961+08:00","caller":"serverinterceptors/statinterceptor.go:94","content":"127.0.0.1:60457 - /wallet.Wallet/Transfer - {\"fromWalletId\":1,\"toWalletId\":2,\"amount\":100,\"remark\":\"test\"}","duration":"0.0ms","level":"info","span":"e70aafb42dbcf057","trace":"1ace56105588f79754602ad8bbb0f0de"}
+exit status 1

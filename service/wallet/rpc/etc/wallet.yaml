@@ -1,0 +1,4 @@
+Name: wallet.rpc
+ListenOn: 0.0.0.0:8080
+Log:
+  Mode: console

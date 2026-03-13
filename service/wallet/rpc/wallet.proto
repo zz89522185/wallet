@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package wallet;
+
+option go_package = "./pb";
+
+message CreateWalletReq {
+  int64 userId = 1;
+  string currency = 2;
+}
+
+message CreateWalletResp {
+  int64 walletId = 1;
+  int64 balance = 2;
+}
+
+message GetWalletReq {
+  int64 walletId = 1;
+}
+
+message GetWalletResp {
+  int64 walletId = 1;
+  int64 balance = 2;
+  string currency = 3;
+}
+
+message TransferReq {
+  int64 fromWalletId = 1;
+  int64 toWalletId = 2;
+  int64 amount = 3;
+  string remark = 4;
+}
+
+message TransferResp {
+  string transferId = 1;
+}
+
+service Wallet {
+  rpc CreateWallet(CreateWalletReq) returns(CreateWalletResp);
+  rpc GetWallet(GetWalletReq) returns(GetWalletResp);
+  rpc Transfer(TransferReq) returns(TransferResp);
+}
