@@ -2,11 +2,14 @@ package logic
 
 import (
 	"context"
+	"sync"
 
 	"wallet/service/wallet/rpc/internal/svc"
 	"wallet/service/wallet/rpc/pb/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type GetWalletLogic struct {
@@ -24,7 +27,18 @@ func NewGetWalletLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetWall
 }
 
 func (l *GetWalletLogic) GetWallet(in *pb.GetWalletReq) (*pb.GetWalletResp, error) {
-	// todo: add your logic here and delete this line
+	mu, _ := l.svcCtx.WalletMu.LoadOrStore(in.WalletId, &sync.Mutex{})
+	mu.(*sync.Mutex).Lock()
+	defer mu.(*sync.Mutex).Unlock()
 
-	return &pb.GetWalletResp{}, nil
+	val, ok := l.svcCtx.Wallets.Load(in.WalletId)
+	if !ok {
+		return nil, status.Error(codes.NotFound, "wallet not found")
+	}
+
+	w := val.(*svc.Wallet)
+	return &pb.GetWalletResp{
+		WalletId: w.Id,
+		Balance:  w.Balance,
+	}, nil
 }

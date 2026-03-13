@@ -35,6 +35,5 @@ func (l *GetWalletLogic) GetWallet(req *types.GetWalletReq) (resp *types.GetWall
 	return &types.GetWalletResp{
 		WalletId: rpcResp.WalletId,
 		Balance:  rpcResp.Balance,
-		Currency: rpcResp.Currency,
 	}, nil
 }

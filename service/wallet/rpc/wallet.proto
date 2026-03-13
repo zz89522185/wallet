@@ -5,8 +5,6 @@ package wallet;
 option go_package = "./pb";
 
 message CreateWalletReq {
-  int64 userId = 1;
-  string currency = 2;
 }
 
 message CreateWalletResp {
@@ -21,7 +19,7 @@ message GetWalletReq {
 message GetWalletResp {
   int64 walletId = 1;
   int64 balance = 2;
-  string currency = 3;
+  reserved 3;
 }
 
 message TransferReq {

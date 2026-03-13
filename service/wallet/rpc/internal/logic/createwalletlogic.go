@@ -24,7 +24,15 @@ func NewCreateWalletLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Crea
 }
 
 func (l *CreateWalletLogic) CreateWallet(in *pb.CreateWalletReq) (*pb.CreateWalletResp, error) {
-	// todo: add your logic here and delete this line
+	id := l.svcCtx.WalletSeq.Add(1)
+	w := &svc.Wallet{
+		Id:      id,
+		Balance: 0,
+	}
+	l.svcCtx.Wallets.Store(id, w)
 
-	return &pb.CreateWalletResp{}, nil
+	return &pb.CreateWalletResp{
+		WalletId: id,
+		Balance:  0,
+	}, nil
 }

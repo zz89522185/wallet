@@ -1,0 +1,187 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Wallet API",
+    "version": "1.0.0"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/wallets": {
+      "post": {
+        "operationId": "CreateWalletHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateWalletResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateWalletReq"
+            }
+          }
+        ],
+        "tags": [
+          "wallet-api"
+        ]
+      }
+    },
+    "/wallets/transfer": {
+      "post": {
+        "operationId": "TransferHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TransferResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TransferReq"
+            }
+          }
+        ],
+        "tags": [
+          "wallet-api"
+        ]
+      }
+    },
+    "/wallets/{walletId}": {
+      "get": {
+        "operationId": "GetWalletHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetWalletResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "walletId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "wallet-api"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CreateWalletReq": {
+      "type": "object",
+      "title": "CreateWalletReq"
+    },
+    "CreateWalletResp": {
+      "type": "object",
+      "properties": {
+        "walletId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "balance": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "CreateWalletResp",
+      "required": [
+        "walletId",
+        "balance"
+      ]
+    },
+    "GetWalletReq": {
+      "type": "object",
+      "title": "GetWalletReq"
+    },
+    "GetWalletResp": {
+      "type": "object",
+      "properties": {
+        "walletId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "balance": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetWalletResp",
+      "required": [
+        "walletId",
+        "balance"
+      ]
+    },
+    "TransferReq": {
+      "type": "object",
+      "properties": {
+        "fromWalletId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "toWalletId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "remark": {
+          "type": "string"
+        }
+      },
+      "title": "TransferReq",
+      "required": [
+        "fromWalletId",
+        "toWalletId",
+        "amount"
+      ]
+    },
+    "TransferResp": {
+      "type": "object",
+      "properties": {
+        "transferId": {
+          "type": "string"
+        }
+      },
+      "title": "TransferResp",
+      "required": [
+        "transferId"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}

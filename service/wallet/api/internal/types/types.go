@@ -4,8 +4,6 @@
 package types
 
 type CreateWalletReq struct {
-	UserId   int64  `json:"userId"`
-	Currency string `json:"currency"`
 }
 
 type CreateWalletResp struct {
@@ -18,9 +16,8 @@ type GetWalletReq struct {
 }
 
 type GetWalletResp struct {
-	WalletId int64  `json:"walletId"`
-	Balance  int64  `json:"balance"`
-	Currency string `json:"currency"`
+	WalletId int64 `json:"walletId"`
+	Balance  int64 `json:"balance"`
 }
 
 type TransferReq struct {

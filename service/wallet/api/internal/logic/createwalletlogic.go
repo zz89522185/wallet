@@ -25,10 +25,7 @@ func NewCreateWalletLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Crea
 }
 
 func (l *CreateWalletLogic) CreateWallet(req *types.CreateWalletReq) (resp *types.CreateWalletResp, err error) {
-	rpcResp, err := l.svcCtx.WalletRpc.CreateWallet(l.ctx, &pb.CreateWalletReq{
-		UserId:   req.UserId,
-		Currency: req.Currency,
-	})
+	rpcResp, err := l.svcCtx.WalletRpc.CreateWallet(l.ctx, &pb.CreateWalletReq{})
 	if err != nil {
 		return nil, err
 	}

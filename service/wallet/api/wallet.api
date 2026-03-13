@@ -2,8 +2,6 @@ syntax = "v1"
 
 type (
 	CreateWalletReq {
-		UserId   int64  `json:"userId"`
-		Currency string `json:"currency"`
 	}
 	CreateWalletResp {
 		WalletId int64 `json:"walletId"`
@@ -16,9 +14,8 @@ type (
 		WalletId int64 `path:"walletId"`
 	}
 	GetWalletResp {
-		WalletId int64  `json:"walletId"`
-		Balance  int64  `json:"balance"`
-		Currency string `json:"currency"`
+		WalletId int64 `json:"walletId"`
+		Balance  int64 `json:"balance"`
 	}
 )
 
