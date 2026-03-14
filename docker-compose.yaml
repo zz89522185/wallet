@@ -1,9 +1,7 @@
 services:
   wallet-rpc:
-    build:
-      context: .
-      dockerfile: Dockerfile.rpc
     container_name: wallet-rpc
+    image: wallet-rpc:latest
     ports:
       - "8080:8080"
     volumes:
@@ -11,10 +9,8 @@ services:
     restart: unless-stopped
 
   wallet-api:
-    build:
-      context: .
-      dockerfile: Dockerfile.api
     container_name: wallet-api
+    image: wallet-api:latest
     ports:
       - "8888:8888"
     volumes:
