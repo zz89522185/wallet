@@ -1,0 +1,9 @@
+Name: wallet-api
+Host: 0.0.0.0
+Port: 8888
+Log:
+  Mode: console
+WalletRpc:
+  Endpoints:
+    - wallet-rpc:8080
+  NonBlock: true

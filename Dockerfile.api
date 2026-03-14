@@ -1,0 +1,34 @@
+FROM golang:1.25-alpine AS builder
+
+LABEL stage=gobuilder
+
+ENV CGO_ENABLED=0 \
+    GOOS=linux \
+    GOARCH=amd64
+
+RUN apk add --no-cache git
+
+WORKDIR /build
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+RUN go build -ldflags="-s -w" -o /app/wallet-api \
+    service/wallet/api/wallet.go service/wallet/api/doc.go
+
+FROM alpine:latest
+
+RUN apk add --no-cache ca-certificates tzdata
+
+ENV TZ=Asia/Shanghai
+
+WORKDIR /app
+
+COPY --from=builder /app/wallet-api /app/wallet-api
+COPY service/wallet/api/etc/wallet-api.yaml /app/etc/wallet-api.yaml
+
+EXPOSE 8888
+
+ENTRYPOINT ["/app/wallet-api", "-f", "etc/wallet-api.yaml"]

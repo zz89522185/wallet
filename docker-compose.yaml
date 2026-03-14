@@ -1,0 +1,24 @@
+services:
+  wallet-rpc:
+    build:
+      context: .
+      dockerfile: Dockerfile.rpc
+    container_name: wallet-rpc
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./deploy/docker-compose/wallet-rpc.yaml:/app/etc/wallet.yaml
+    restart: unless-stopped
+
+  wallet-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: wallet-api
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./deploy/docker-compose/wallet-api.yaml:/app/etc/wallet-api.yaml
+    depends_on:
+      - wallet-rpc
+    restart: unless-stopped
