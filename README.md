@@ -207,9 +207,9 @@ events {
 
 http {
     upstream wallet_api {
-        server wallet-api-1:8888;
-        server wallet-api-2:8888;
-        server wallet-api-3:8888;
+        server wallet-api-1:8881;
+        server wallet-api-2:8882;
+        server wallet-api-3:8883;
     }
 
     server {
