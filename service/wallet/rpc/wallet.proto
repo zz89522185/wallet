@@ -41,8 +41,21 @@ message TransferResp {
   int64 toWalletBalanceAfter = 9;
 }
 
+message DepositReq {
+  int64 walletId = 1;
+  int64 amount = 2;
+}
+
+message DepositResp {
+  int64 walletId = 1;
+  int64 amount = 2;
+  int64 balanceBefore = 3;
+  int64 balanceAfter = 4;
+}
+
 service Wallet {
   rpc CreateWallet(CreateWalletReq) returns(CreateWalletResp);
   rpc GetWallet(GetWalletReq) returns(GetWalletResp);
   rpc Transfer(TransferReq) returns(TransferResp);
+  rpc Deposit(DepositReq) returns(DepositResp);
 }

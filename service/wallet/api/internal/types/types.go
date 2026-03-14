@@ -38,3 +38,15 @@ type TransferResp struct {
 	ToWalletBalanceBefore   int64  `json:"toWalletBalanceBefore"`
 	ToWalletBalanceAfter    int64  `json:"toWalletBalanceAfter"`
 }
+
+type DepositReq struct {
+	WalletId int64 `json:"walletId"`
+	Amount   int64 `json:"amount"`
+}
+
+type DepositResp struct {
+	WalletId      int64 `json:"walletId"`
+	Amount        int64 `json:"amount"`
+	BalanceBefore int64 `json:"balanceBefore"`
+	BalanceAfter  int64 `json:"balanceAfter"`
+}

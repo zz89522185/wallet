@@ -20,11 +20,14 @@ type (
 	GetWalletResp    = pb.GetWalletResp
 	TransferReq      = pb.TransferReq
 	TransferResp     = pb.TransferResp
+	DepositReq       = pb.DepositReq
+	DepositResp      = pb.DepositResp
 
 	Wallet interface {
 		CreateWallet(ctx context.Context, in *CreateWalletReq, opts ...grpc.CallOption) (*CreateWalletResp, error)
 		GetWallet(ctx context.Context, in *GetWalletReq, opts ...grpc.CallOption) (*GetWalletResp, error)
 		Transfer(ctx context.Context, in *TransferReq, opts ...grpc.CallOption) (*TransferResp, error)
+		Deposit(ctx context.Context, in *DepositReq, opts ...grpc.CallOption) (*DepositResp, error)
 	}
 
 	defaultWallet struct {
@@ -51,4 +54,9 @@ func (m *defaultWallet) GetWallet(ctx context.Context, in *GetWalletReq, opts ..
 func (m *defaultWallet) Transfer(ctx context.Context, in *TransferReq, opts ...grpc.CallOption) (*TransferResp, error) {
 	client := pb.NewWalletClient(m.cli.Conn())
 	return client.Transfer(ctx, in, opts...)
+}
+
+func (m *defaultWallet) Deposit(ctx context.Context, in *DepositReq, opts ...grpc.CallOption) (*DepositResp, error) {
+	client := pb.NewWalletClient(m.cli.Conn())
+	return client.Deposit(ctx, in, opts...)
 }

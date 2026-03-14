@@ -39,6 +39,19 @@ type (
 	}
 )
 
+type (
+	DepositReq {
+		WalletId int64 `json:"walletId"`
+		Amount   int64 `json:"amount"`
+	}
+	DepositResp {
+		WalletId      int64 `json:"walletId"`
+		Amount        int64 `json:"amount"`
+		BalanceBefore int64 `json:"balanceBefore"`
+		BalanceAfter  int64 `json:"balanceAfter"`
+	}
+)
+
 service wallet-api {
 	@handler CreateWalletHandler
 	post /wallets (CreateWalletReq) returns (CreateWalletResp)
@@ -48,5 +61,8 @@ service wallet-api {
 
 	@handler TransferHandler
 	post /wallets/transfer (TransferReq) returns (TransferResp)
+
+	@handler DepositHandler
+	post /wallets/deposit (DepositReq) returns (DepositResp)
 }
 

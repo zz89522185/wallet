@@ -37,3 +37,8 @@ func (s *WalletServer) Transfer(ctx context.Context, in *pb.TransferReq) (*pb.Tr
 	l := logic.NewTransferLogic(ctx, s.svcCtx)
 	return l.Transfer(in)
 }
+
+func (s *WalletServer) Deposit(ctx context.Context, in *pb.DepositReq) (*pb.DepositResp, error) {
+	l := logic.NewDepositLogic(ctx, s.svcCtx)
+	return l.Deposit(in)
+}

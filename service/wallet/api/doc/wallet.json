@@ -41,6 +41,32 @@
         ]
       }
     },
+    "/wallets/deposit": {
+      "post": {
+        "operationId": "DepositHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DepositResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DepositReq"
+            }
+          }
+        ],
+        "tags": [
+          "wallet-api"
+        ]
+      }
+    },
     "/wallets/transfer": {
       "post": {
         "operationId": "TransferHandler",
@@ -115,6 +141,52 @@
         "balance"
       ]
     },
+    "DepositReq": {
+      "type": "object",
+      "properties": {
+        "walletId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DepositReq",
+      "required": [
+        "walletId",
+        "amount"
+      ]
+    },
+    "DepositResp": {
+      "type": "object",
+      "properties": {
+        "walletId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "balanceBefore": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "balanceAfter": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DepositResp",
+      "required": [
+        "walletId",
+        "amount",
+        "balanceBefore",
+        "balanceAfter"
+      ]
+    },
     "GetWalletReq": {
       "type": "object",
       "title": "GetWalletReq"
@@ -168,11 +240,50 @@
       "properties": {
         "transferId": {
           "type": "string"
+        },
+        "fromWalletId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "toWalletId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "fromWalletBalanceBefore": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "fromWalletBalanceAfter": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "toWalletBalanceBefore": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "toWalletBalanceAfter": {
+          "type": "integer",
+          "format": "int64"
         }
       },
       "title": "TransferResp",
       "required": [
-        "transferId"
+        "transferId",
+        "fromWalletId",
+        "toWalletId",
+        "amount",
+        "remark",
+        "fromWalletBalanceBefore",
+        "fromWalletBalanceAfter",
+        "toWalletBalanceBefore",
+        "toWalletBalanceAfter"
       ]
     }
   },
