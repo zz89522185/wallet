@@ -71,6 +71,10 @@ func (l *TransferLogic) Transfer(in *pb.TransferReq) (*pb.TransferResp, error) {
 		return nil, status.Error(codes.FailedPrecondition, "insufficient balance")
 	}
 
+	// 捕获转账前余额快照
+	fromBalanceBefore := fromWallet.Balance
+	toBalanceBefore := toWallet.Balance
+
 	fromWallet.Balance -= in.Amount
 	toWallet.Balance += in.Amount
 
@@ -79,7 +83,15 @@ func (l *TransferLogic) Transfer(in *pb.TransferReq) (*pb.TransferResp, error) {
 	transferId := fmt.Sprintf("TX-%d", seq)
 
 	return &pb.TransferResp{
-		TransferId: transferId,
+		TransferId:              transferId,
+		FromWalletId:            in.FromWalletId,
+		ToWalletId:              in.ToWalletId,
+		Amount:                  in.Amount,
+		Remark:                  in.Remark,
+		FromWalletBalanceBefore: fromBalanceBefore,
+		FromWalletBalanceAfter:  fromWallet.Balance,
+		ToWalletBalanceBefore:   toBalanceBefore,
+		ToWalletBalanceAfter:    toWallet.Balance,
 	}, nil
 }
 

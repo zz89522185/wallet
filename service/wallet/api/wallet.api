@@ -27,7 +27,15 @@ type (
 		Remark       string `json:"remark,optional"`
 	}
 	TransferResp {
-		TransferId string `json:"transferId"`
+		TransferId              string `json:"transferId"`
+		FromWalletId            int64  `json:"fromWalletId"`
+		ToWalletId              int64  `json:"toWalletId"`
+		Amount                  int64  `json:"amount"`
+		Remark                  string `json:"remark"`
+		FromWalletBalanceBefore int64  `json:"fromWalletBalanceBefore"`
+		FromWalletBalanceAfter  int64  `json:"fromWalletBalanceAfter"`
+		ToWalletBalanceBefore   int64  `json:"toWalletBalanceBefore"`
+		ToWalletBalanceAfter    int64  `json:"toWalletBalanceAfter"`
 	}
 )
 

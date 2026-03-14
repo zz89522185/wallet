@@ -36,6 +36,14 @@ func (l *TransferLogic) Transfer(req *types.TransferReq) (resp *types.TransferRe
 	}
 
 	return &types.TransferResp{
-		TransferId: rpcResp.TransferId,
+		TransferId:              rpcResp.TransferId,
+		FromWalletId:            rpcResp.FromWalletId,
+		ToWalletId:              rpcResp.ToWalletId,
+		Amount:                  rpcResp.Amount,
+		Remark:                  rpcResp.Remark,
+		FromWalletBalanceBefore: rpcResp.FromWalletBalanceBefore,
+		FromWalletBalanceAfter:  rpcResp.FromWalletBalanceAfter,
+		ToWalletBalanceBefore:   rpcResp.ToWalletBalanceBefore,
+		ToWalletBalanceAfter:    rpcResp.ToWalletBalanceAfter,
 	}, nil
 }
