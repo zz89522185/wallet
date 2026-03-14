@@ -36,7 +36,17 @@ func (l *TransferLogic) Transfer(in *pb.TransferReq) (*pb.TransferResp, error) {
 		return nil, status.Error(codes.InvalidArgument, "transfer amount must be positive")
 	}
 
-	// 2.2 按 walletId 升序确定加锁顺序，防止死锁
+	// 2.2 钱包查找
+	_, ok := l.svcCtx.Wallets.Load(in.FromWalletId)
+	if !ok {
+		return nil, status.Error(codes.NotFound, "source wallet not found")
+	}
+	_, ok = l.svcCtx.Wallets.Load(in.ToWalletId)
+	if !ok {
+		return nil, status.Error(codes.NotFound, "target wallet not found")
+	}
+
+	// 2.3 按 walletId 升序确定加锁顺序，防止死锁
 	firstId, secondId := in.FromWalletId, in.ToWalletId
 	if firstId > secondId {
 		firstId, secondId = secondId, firstId
@@ -50,15 +60,8 @@ func (l *TransferLogic) Transfer(in *pb.TransferReq) (*pb.TransferResp, error) {
 	secondMu.Lock()
 	defer secondMu.Unlock()
 
-	// 2.3 钱包查找
-	fromVal, ok := l.svcCtx.Wallets.Load(in.FromWalletId)
-	if !ok {
-		return nil, status.Error(codes.NotFound, "source wallet not found")
-	}
-	toVal, ok := l.svcCtx.Wallets.Load(in.ToWalletId)
-	if !ok {
-		return nil, status.Error(codes.NotFound, "target wallet not found")
-	}
+	fromVal, _ := l.svcCtx.Wallets.Load(in.FromWalletId)
+	toVal, _ := l.svcCtx.Wallets.Load(in.ToWalletId)
 
 	fromWallet := fromVal.(*svc.Wallet)
 	toWallet := toVal.(*svc.Wallet)

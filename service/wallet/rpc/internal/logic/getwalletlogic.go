@@ -27,15 +27,16 @@ func NewGetWalletLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetWall
 }
 
 func (l *GetWalletLogic) GetWallet(in *pb.GetWalletReq) (*pb.GetWalletResp, error) {
-	mu, _ := l.svcCtx.WalletMu.LoadOrStore(in.WalletId, &sync.Mutex{})
-	mu.(*sync.Mutex).Lock()
-	defer mu.(*sync.Mutex).Unlock()
-
-	val, ok := l.svcCtx.Wallets.Load(in.WalletId)
+	_, ok := l.svcCtx.Wallets.Load(in.WalletId)
 	if !ok {
 		return nil, status.Error(codes.NotFound, "wallet not found")
 	}
 
+	mu, _ := l.svcCtx.WalletMu.LoadOrStore(in.WalletId, &sync.Mutex{})
+	mu.(*sync.Mutex).Lock()
+	defer mu.(*sync.Mutex).Unlock()
+
+	val, _ := l.svcCtx.Wallets.Load(in.WalletId)
 	w := val.(*svc.Wallet)
 	return &pb.GetWalletResp{
 		WalletId: w.Id,
